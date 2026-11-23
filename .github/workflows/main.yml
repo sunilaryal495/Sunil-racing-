@@ -30,15 +30,16 @@ jobs:
         run: |
           sdkmanager "platforms;android-35" "build-tools;35.0.0"
           unzip -o "Sunil-racing--main.zip" -d project
-          cd project
-          PROJECT_DIR=$(dirname "$(find . -name settings.gradle -o -name settings.gradle.kts | head -n 1)")
-          if [ -z "$PROJECT_DIR" ]; then
+          SETTINGS_FILE=$(find project \( -name settings.gradle -o -name settings.gradle.kts \) | head -n 1)
+          if [ -z "$SETTINGS_FILE" ]; then
             echo "Gradle project not found"
             exit 1
           fi
+          PROJECT_DIR=$(dirname "$SETTINGS_FILE")
           cd "$PROJECT_DIR"
           gradle assembleDebug
-                - name: Upload APK
+
+      - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
           name: SUNIL-RACING-APK
