@@ -1,3 +1,5 @@
+
+
 name: Build SUNIL RACING
 
 on:
@@ -16,16 +18,15 @@ jobs:
           distribution: temurin
           java-version: '17'
 
-      - uses: android-actions/setup-android@v3
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v4
         with:
           accept-android-sdk-licenses: true
+          log-accepted-android-sdk-licenses: false
 
       - uses: gradle/actions/setup-gradle@v4
         with:
           gradle-version: '8.7'
-
-      - name: Accept Android Licenses
-        run: yes | sdkmanager --licenses
 
       - name: Build APK
         run: |
@@ -37,4 +38,4 @@ jobs:
       - uses: actions/upload-artifact@v4
         with:
           name: SUNIL-RACING-APK
-          path: project/app/build/outputs/apk/debug/app-debug.apk
+          path: project
