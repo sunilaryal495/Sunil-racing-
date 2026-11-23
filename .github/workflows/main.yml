@@ -31,4 +31,10 @@ jobs:
           sdkmanager "platforms;android-35" "build-tools;35.0.0"
           unzip -o "Sunil-racing--main.zip" -d project
           cd project
-          find . -name settings.gradle -o -name settings.gradle.kts
+          PROJECT_DIR=$(dirname "$(find . -name settings.gradle -o -name settings.gradle.kts | head -n 1)")
+if [ -z "$PROJECT_DIR" ]; then
+  echo "Gradle project not found"
+  exit 1
+fi
+cd "$PROJECT_DIR"
+gradle assembleDebug
