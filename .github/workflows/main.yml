@@ -38,3 +38,9 @@ jobs:
           fi
           cd "$PROJECT_DIR"
           gradle assembleDebug
+                - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: SUNIL-RACING-APK
+          path: project/**/app/build/outputs/apk/debug/app-debug.apk
+          if-no-files-found: error
